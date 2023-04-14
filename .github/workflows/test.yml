@@ -16,20 +16,20 @@ jobs:
       - name: Build with Maven        #инструмент для автоматизации сборки проектов
         run: mvn --batch-mode --update-snapshots verify
         
-      - run: mkdir java_test_folder && cp target/*.jar staging #Создание папки для хранения артефакта  
+      - run: mkdir java_test_folder && cp target/*.jar java_test_folder #Создание папки для хранения артефакта  
       - uses: actions/upload-artifact@v3
         with:
-         name: Package
+         name: Package_test
          path: java_test_folder
    
-  download:                                                    #Выгружаем артефакт
+  download_artifact:                                                    #Выгружаем артефакт
    needs: running_build 
    runs-on: ubuntu-latest
    steps:
-     - name: Download build
+     - name: Download_build
        uses: actions/download-artifact@v3
        with:
-        name: Package
+        name: Package_test
 
 
  
