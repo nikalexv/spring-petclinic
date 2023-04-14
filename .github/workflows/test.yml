@@ -1,25 +1,21 @@
-name: Test
+name: Java-test
 
-on: workflow_dispatch
+on: workflow_dispatch                 #Ручной запуск
 
 jobs:
-  build:
-
+  running_build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        java: [ '17' ]
 
     steps:
       - uses: actions/checkout@v3
-      - name: Set up JDK ${{matrix.java}}
-        uses: actions/setup-java@v2
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
         with:
-          java-version: ${{matrix.java}}
-          distribution: 'adopt'
-          cache: maven
-      - name: Build with Maven Wrapper
-        run: ./mvnw -B package
+         java-version: '17'           #JDK version 17 Adoptium
+         distribution: 'adopt'         
+         cache: maven                 #Кэширование зависимостей - локальный репозиторий Maven будет храниться в кэше
+      - name: Build with Maven        #инструмент для автоматизации сборки проектов
+        run: mvn --batch-mode --update-snapshots verify
 
 
  
