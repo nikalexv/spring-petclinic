@@ -5,7 +5,6 @@ on: workflow_dispatch                 #Ручной запуск
 jobs:
   running_build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
@@ -16,6 +15,21 @@ jobs:
          cache: maven                 #Кэширование зависимостей - локальный репозиторий Maven будет храниться в кэше
       - name: Build with Maven        #инструмент для автоматизации сборки проектов
         run: mvn --batch-mode --update-snapshots verify
+        
+      - run: mkdir java_test_folder && cp target/*.jar staging #Создание папки для хранения артефакта  
+      - uses: actions/upload-artifact@v3
+        with:
+         name: Package
+         path: java_test_folder
+   
+  download:                                                    #Выгружаем артефакт
+   needs: running_build 
+   runs-on: ubuntu-latest
+   steps:
+     - name: Download build
+       uses: actions/download-artifact@v3
+       with:
+        name: Package
 
 
  
