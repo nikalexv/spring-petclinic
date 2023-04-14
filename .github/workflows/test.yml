@@ -1,11 +1,13 @@
-name: TestAction
+name: Test
+
 on: workflow_dispatch
+
 jobs:
- running_build:
- 
-  runs-on: ubuntu-latest
-  strategy:
-   matrix:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
         java: [ '17' ]
 
     steps:
@@ -18,5 +20,6 @@ jobs:
           cache: maven
       - name: Build with Maven Wrapper
         run: ./mvnw -B package
+
 
  
