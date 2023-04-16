@@ -6,7 +6,7 @@ on:
 jobs:
   build:
     name: Ubuntu-ssh
-    runs-on: ubuntu-20.04   
+    runs-on: ubuntu-latest  
     steps:
       - name: Github actions...
         uses: actions/checkout@v3
