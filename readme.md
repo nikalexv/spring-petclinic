@@ -19,9 +19,6 @@ CI/CD pipeline описан в .github/workflows/test.yml
 - копирование артефакта на сервер;
 - перезапуск сервиса с помощью systemd.
 
-Сервис доступен по адресу:
-http://80.85.241.235:8080/
-
 Содержание /etc/systemd/system/pet_cli.service
 ```
 [Unit]
