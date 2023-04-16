@@ -38,7 +38,7 @@ jobs:
         with:
          name: ${{ env.artifact_name }}
          
-      - name: copy file via ssh password                                 #Выгружаем артефакт на сервер
+      - name: copy artifact                                             #Выгружаем артефакт на сервер
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.IP_SERVER }}
@@ -47,6 +47,15 @@ jobs:
           port: ${{ secrets.PORT_SERVER }}
           source: "/home/runner/work/spring-petclinic/spring-petclinic/java_test_folder/"
           target: "/home/nikalex/deploy"
+          
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.IP_SERVER }}
+          username: ${{ secrets.USER_SERVER }}
+          password: ${{ secrets.SSH_PASS }}
+          port: ${{ secrets.PORT }}
+          script: whoami
  
      
       
