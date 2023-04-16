@@ -2,6 +2,7 @@
 https://github.com/spring-projects/spring-petclinic
 
 Задача.
+
 Используя открытую платформу GitHub, для Java-проекта написать CI/CD pipeline состоящий из нескольких стадий:
 1. Сборка проекта;
 2. Запуск тестов;
@@ -9,6 +10,7 @@ https://github.com/spring-projects/spring-petclinic
 4. Регистрация и запуск сервиса.
 
 Выполнение.
+
 CI/CD pipeline описан в .github/workflows/test.yml
 Осуществляется:
 - сборка проект; 
