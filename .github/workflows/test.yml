@@ -53,14 +53,14 @@ jobs:
 
       
    
-  download_artifact:                                                    #Выгружаем артефакт
-   needs: running_build                                                 #Выполняем job, если предыдущий ОК
-   runs-on: ubuntu-latest
-   steps:
-     - name: Download_build
-       uses: actions/download-artifact@v3
-       with:
-        name: ${{ env.artifact_name }}
+  #download_artifact:                                                    #Выгружаем артефакт
+   #needs: running_build                                                 #Выполняем job, если предыдущий ОК
+   #runs-on: ubuntu-latest
+   #steps:
+     #- name: Download_build
+       #uses: actions/download-artifact@v3
+       #with:
+        #name: ${{ env.artifact_name }}
 
 
  
