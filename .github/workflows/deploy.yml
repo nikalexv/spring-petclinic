@@ -1,0 +1,20 @@
+name: ssh-action-deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Ubuntu-ssh
+    runs-on: ubuntu-20.04   
+    steps:
+      - name: Github actions...
+        uses: actions/checkout@v3
+      - name: Deploy with ssh...
+        uses: sebastianjnuwu/ssh-action-deploy@v1
+        with:
+          IP: ${{ secrets.IP }}
+          USER: ${{ secrets.USER }}
+          KEY: ${{ secrets.KEY }}
+          FOLDER: 'home/nikalex/.deploy'
+          RUN: 'ls -a; pwd'
