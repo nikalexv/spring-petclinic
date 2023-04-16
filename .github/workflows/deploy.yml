@@ -16,5 +16,5 @@ jobs:
           IP: ${{ secrets.IP_SERVER }}
           USER: ${{ secrets.USER_SERVER }}
           KEY: ${{ secrets.SSH_PASS }}
-          FOLDER: 'home/nikalex/test_deploy'
+          FOLDER: 'home/nikalex/.test_deploy'
           RUN: 'ls -a; pwd'
