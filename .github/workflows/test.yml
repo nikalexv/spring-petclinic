@@ -32,7 +32,7 @@ jobs:
       - name: Checkout files                                            #проверка наличия файла pom.xml в проекте
         uses: Bhacaz/checkout-files@v2
         with:
-          files: ${{ check_file_name }}
+          files: ${{ env.check_file_name }}
    
   download_artifact:                                                    #Выгружаем артефакт
    needs: running_build                                                 #Выполняем job, если предыдущий ОК
