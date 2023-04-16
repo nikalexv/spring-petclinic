@@ -38,7 +38,7 @@ jobs:
         with:
          name: ${{ env.artifact_name }}
          
-      - name: copy artifact                                             #Выгружаем артефакт на сервер
+      - name: copy artifact on server                                     #Выгружаем артефакт на сервер
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.IP_SERVER }}
@@ -48,14 +48,16 @@ jobs:
           source: "/home/runner/work/spring-petclinic/spring-petclinic/java_test_folder/"
           target: "/home/nikalex/deploy"
           
-      - name: executing remote ssh commands using password
+      - name: systemctl restart                                           #перезагружаем сервис после размещения артефакта на сервере
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.IP_SERVER }}
           username: ${{ secrets.USER_SERVER }}
           password: ${{ secrets.SSH_PASS }}
           port: ${{ secrets.PORT }}
-          script: whoami
+          script: |
+            sudo systemctl restart pet_cli.service
+          
  
      
       
