@@ -23,17 +23,30 @@ jobs:
       - name: Build with Maven                                          #инструмент для автоматизации сборки проектов
         run: mvn --batch-mode --update-snapshots verify
         
+      - name: Checkout files                                            #проверка наличия файла pom.xml в проекте
+        uses: Bhacaz/checkout-files@v2
+        with:
+          files: ${{ env.check_file_name }}
+        
       - run: mkdir java_test_folder && cp target/*.jar java_test_folder #Создание папки для хранения артефакта  
       - uses: actions/upload-artifact@v3
         with:
          name: ${{ env.artifact_name }}
          path: ${{ env.path }}
-         
-      - name: Checkout files                                            #проверка наличия файла pom.xml в проекте
-        uses: Bhacaz/checkout-files@v2
+          
+      - uses: actions/download-artifact@v3
         with:
-          files: ${{ env.check_file_name }}
-      
+         name: ${{ env.artifact_name }}
+         
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.IP_SERVER }}
+          username: ${{ secrets.USER_SERVER }}
+          password: ${{ secrets.SSH_PASS }}
+          port: ${{ secrets.PORT_SERVER }}
+          source: "/home/runner/work/spring-petclinic/spring-petclinic/java_test_folder/"
+          target: "/home/nikalex/deploy"
    
   #download_artifact:                                                    #Выгружаем артефакт
    #needs: running_build                                                 #Выполняем job, если предыдущий ОК
@@ -41,19 +54,7 @@ jobs:
    #steps:
      #- name: Download_build
      
-      - uses: actions/download-artifact@v3
-       with:
-         name: ${{ env.artifact_name }}
-         
-     - name: copy file via ssh password
-       uses: appleboy/scp-action@v0.1.4
-       with:
-         host: ${{ secrets.IP_SERVER }}
-         username: ${{ secrets.USER_SERVER }}
-         password: ${{ secrets.SSH_PASS }}
-         port: ${{ secrets.PORT_SERVER }}
-         source: "/home/runner/work/spring-petclinic/spring-petclinic/java_test_folder/"
-         target: "/home/nikalex/deploy"
+      
         
         
         
