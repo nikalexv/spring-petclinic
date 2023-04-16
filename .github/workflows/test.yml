@@ -34,15 +34,14 @@ jobs:
         with:
           files: ${{ env.check_file_name }}
           
-      - name: deploy file
-        uses: ChenjxJames/SFTP-Deploy-Action@v1.3.2
-        with:
-          username: 'nikalex'
-          server: '80.85.241.235'
-          ssh_private_key: ${{ secrets.SSH_KEY }}
-          local_path: '/home/runner/work/spring-petclinic/spring-petclinic/java_test_folder/*'
-          remote_path: '/home/nikalex/deploy'
-          args: '-o ConnectTimeout=5'
+      - name: Write SSH keys
+        run: |
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+          host='80.85.241.235'
+          ssh-keyscan -H "$host" > ~/.ssh/known_hosts
+          
+    
       
    
   download_artifact:                                                    #Выгружаем артефакт
