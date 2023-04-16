@@ -28,7 +28,7 @@ jobs:
         with:
           files: ${{ env.check_file_name }}
         
-      - run: mkdir java_test_folder && cp target/*.jar java_test_folder #Создание папки для хранения артефакта  
+      - run: mkdir java_test_folder && cp target/*.jar java_test_folder #Создание каталога для хранения артефакта  
       - uses: actions/upload-artifact@v3
         with:
          name: ${{ env.artifact_name }}
@@ -38,7 +38,7 @@ jobs:
         with:
          name: ${{ env.artifact_name }}
          
-      - name: copy file via ssh password
+      - name: copy file via ssh password                                 #Выгружаем артефакт на сервер
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.IP_SERVER }}
@@ -47,12 +47,7 @@ jobs:
           port: ${{ secrets.PORT_SERVER }}
           source: "/home/runner/work/spring-petclinic/spring-petclinic/java_test_folder/"
           target: "/home/nikalex/deploy"
-   
-  #download_artifact:                                                    #Выгружаем артефакт
-   #needs: running_build                                                 #Выполняем job, если предыдущий ОК
-   #runs-on: ubuntu-latest
-   #steps:
-     #- name: Download_build
+ 
      
       
         
