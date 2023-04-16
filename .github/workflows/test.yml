@@ -40,18 +40,8 @@ jobs:
           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
           host='80.85.241.235'
           ssh-keyscan -H "$host" > ~/.ssh/known_hosts
-          
-      - name: deploy file
-         uses: ChenjxJames/SFTP-Deploy-Action@v1.3.2
-         with:
-           username: 'nikalex'
-           server: '80.85.241.235'
-           ssh_private_key: ${{ secrets.SSH_KEY }}
-           local_path: '/home/runner/work/spring-petclinic/spring-petclinic/java_test_folder/*'
-           remote_path: '/home/nikalex/deploy/'
-           args: '-o ConnectTimeout=5'
-          
-    
+      - run: cd /home/runner/work/spring-petclinic/spring-petclinic/java_test_folder/ && rsync -e "ssh -p 22 -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . 80.85.241.235:/home/nikalex/deploy/
+      
       
    
   download_artifact:                                                    #Выгружаем артефакт
