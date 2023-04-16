@@ -2,7 +2,7 @@ name: Java-test
 
 on:
   push:
-  workflow_dispatch:                                                   #Ручной запуск
+  workflow_dispatch:                                                   #Ручной запуск для тестирования
  
 env:
   path: java_test_folder
