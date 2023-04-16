@@ -13,8 +13,8 @@ jobs:
       - name: Deploy with ssh...
         uses: sebastianjnuwu/ssh-action-deploy@v1
         with:
-          IP: ${{ secrets.IP }}
-          USER: ${{ secrets.USER }}
-          KEY: ${{ secrets.KEY }}
-          FOLDER: 'home/nikalex/.deploy'
+          IP: ${{ secrets.IP_SERVER }}
+          USER: ${{ secrets.USER_SERVER }}
+          KEY: ${{ secrets.SSH_PASS }}
+          FOLDER: 'home/nikalex/test_deploy'
           RUN: 'ls -a; pwd'
