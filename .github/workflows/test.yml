@@ -33,23 +33,16 @@ jobs:
         uses: Bhacaz/checkout-files@v2
         with:
           files: ${{ env.check_file_name }}
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.IP_SERVER }}
+          username: ${{ secrets.USER_SERVER }}
+          password: ${{ secrets.SSH_PASS }}
+          port: 22
+          source: "/home/runner/work/spring-petclinic/spring-petclinic/java_test_folder/"
+          target: "/home/nikalex/deploy"
           
-      - name: Deploy to Server
-        uses: easingthemes/ssh-deploy@main
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
-          ARGS: "-rlgoDzvc -i --delete"
-          SOURCE: "/home/runner/work/spring-petclinic/spring-petclinic/java_test_folder/"
-          REMOTE_HOST: ${{ secrets.IP_SERVER }}
-          REMOTE_USER: ${{ secrets.USER_SERVER }}
-          TARGET: "/home/nikalex/deploy/"
-          SCRIPT_BEFORE: |
-            whoami
-            ls -al
-          SCRIPT_AFTER: |
-            whoami
-            ls -al
-            echo $RSYNC_STDOUT
 
       
    
