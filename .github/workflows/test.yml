@@ -41,6 +41,16 @@ jobs:
           host='80.85.241.235'
           ssh-keyscan -H "$host" > ~/.ssh/known_hosts
           
+      - name: deploy file
+         uses: ChenjxJames/SFTP-Deploy-Action@v1.3.2
+         with:
+           username: 'nikalex'
+           server: '80.85.241.235'
+           ssh_private_key: ${{ secrets.SSH_KEY }}
+           local_path: '/home/runner/work/spring-petclinic/spring-petclinic/java_test_folder/*'
+           remote_path: '/home/nikalex/deploy/'
+           args: '-o ConnectTimeout=5'
+          
     
       
    
