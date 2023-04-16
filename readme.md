@@ -21,6 +21,25 @@ CI/CD pipeline описан в .github/workflows/test.yml
 Сервис доступен по адресу:
 http://80.85.241.235:8080/
 
+Содержание /etc/systemd/system/pet_cli.service
+```
+[Unit]
+Description=Pet Clinic Service
+
+
+[Service]
+user=nikalex
+ExecStart=java -jar /home/nikalex/deploy/github/workspace/java_test_folder/spring-petclinic-3.0.0-SNAPSHOT.jar
+Type=simple
+Restart=on-failure
+RestartSec=10
+
+
+[Install]
+WantedBy=multi-user.target
+```
+
+
 
 
 ##################################################################################
