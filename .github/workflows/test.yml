@@ -1,8 +1,12 @@
 name: Java-test
 
 on:
- push:
- workflow_dispatch:                 #Ручной запуск
+  push:
+  workflow_dispatch:                 #Ручной запуск
+ 
+env:
+  path: java_test_folder
+  artifact_name: Package_test
 
 jobs:
   running_build:
@@ -21,8 +25,8 @@ jobs:
       - run: mkdir java_test_folder && cp target/*.jar java_test_folder #Создание папки для хранения артефакта  
       - uses: actions/upload-artifact@v3
         with:
-         name: Package_test
-         path: java_test_folder
+         name: ${{ env.artifact_name }}
+         path: ${{ env.path }}
    
   download_artifact:                                                    #Выгружаем артефакт
    needs: running_build 
@@ -31,7 +35,7 @@ jobs:
      - name: Download_build
        uses: actions/download-artifact@v3
        with:
-        name: Package_test
+        name: ${{ env.artifact_name }}
 
 
  
