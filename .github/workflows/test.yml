@@ -45,14 +45,14 @@ jobs:
          name: ${{ env.artifact_name }}
          
      - name: copy file via ssh password
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.IP_SERVER }}
-          username: ${{ secrets.USER_SERVER }}
-          password: ${{ secrets.SSH_PASS }}
-          port: ${{ secrets.PORT_SERVER }}
-          source: "/home/runner/work/spring-petclinic/spring-petclinic/java_test_folder/"
-          target: "/home/nikalex/deploy"
+       uses: appleboy/scp-action@v0.1.4
+       with:
+         host: ${{ secrets.IP_SERVER }}
+         username: ${{ secrets.USER_SERVER }}
+         password: ${{ secrets.SSH_PASS }}
+         port: ${{ secrets.PORT_SERVER }}
+         source: "/home/runner/work/spring-petclinic/spring-petclinic/java_test_folder/"
+         target: "/home/nikalex/deploy"
         
         
         
