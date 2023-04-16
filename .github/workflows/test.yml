@@ -1,6 +1,8 @@
 name: Java-test
 
-on: workflow_dispatch                 #Ручной запуск
+on:
+ push:
+ workflow_dispatch:                 #Ручной запуск
 
 jobs:
   running_build:
