@@ -12,6 +12,7 @@ https://github.com/spring-projects/spring-petclinic
 **Выполнение.**
 
 CI/CD pipeline описан в .github/workflows/test.yml
+
 Осуществляется:
 - сборка проект; 
 - тестирование на наличие файла pom.xml в проекте;
