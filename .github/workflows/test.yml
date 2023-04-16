@@ -34,14 +34,23 @@ jobs:
         with:
           files: ${{ env.check_file_name }}
           
-      - name: Write SSH keys
-        run: |
-          install -m 600 -D /dev/null ~/.ssh/id_rsa
-          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
-          host='80.85.241.235'
-          ssh-keyscan -H "$host" > ~/.ssh/known_hosts
-      - run: cd /home/runner/work/spring-petclinic/spring-petclinic/java_test_folder/ && rsync -e "ssh -p 22 -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . 80.85.241.235:/home/nikalex/deploy/
-      
+      - name: Deploy to Server
+      uses: easingthemes/ssh-deploy@main
+      env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+          ARGS: "-rlgoDzvc -i --delete"
+          SOURCE: "/home/runner/work/spring-petclinic/spring-petclinic/java_test_folder/"
+          REMOTE_HOST: ${{ secrets.IP_SERVER }}
+          REMOTE_USER: ${{ secrets.USER_SERVER }}
+          TARGET: "/home/nikalex/deploy/"
+          SCRIPT_BEFORE: |
+            whoami
+            ls -al
+          SCRIPT_AFTER: |
+            whoami
+            ls -al
+            echo $RSYNC_STDOUT
+
       
    
   download_artifact:                                                    #Выгружаем артефакт
